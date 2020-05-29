@@ -435,7 +435,7 @@ void curve25519_expand(bignum25519 out, const unsigned char in[32]) {
  * little-endian, 32-byte array
  */
 void curve25519_contract(unsigned char out[32], const bignum25519 in) {
-	bignum25519 f = {0};
+	bignum25519 f = {};
 	curve25519_copy(f, in);
 
 	#define carry_pass() \
@@ -557,13 +557,13 @@ void curve25519_set_sqrtneg1(bignum25519 r){
 }
 
 int curve25519_isnegative(const bignum25519 f) {
-	unsigned char s[32] = {0};
+	unsigned char s[32] = {};
 	curve25519_contract(s, f);
 	return s[0] & 1;
 }
 
 int curve25519_isnonzero(const bignum25519 f) {
-	unsigned char s[32] = {0};
+	unsigned char s[32] = {};
 	curve25519_contract(s, f);
 	return ((((int) (s[0] | s[1] | s[2] | s[3] | s[4] | s[5] | s[6] | s[7] | s[8] |
 									s[9] | s[10] | s[11] | s[12] | s[13] | s[14] | s[15] | s[16] | s[17] |
@@ -587,7 +587,7 @@ void curve25519_reduce(bignum25519 out, const bignum25519 in) {
 }
 
 void curve25519_divpowm1(bignum25519 r, const bignum25519 u, const bignum25519 v) {
-	bignum25519 v3={0}, uv7={0}, t0={0}, t1={0}, t2={0};
+	bignum25519 v3={}, uv7={}, t0={}, t1={}, t2={};
 	int i = 0;
 
 	curve25519_square(v3, v);

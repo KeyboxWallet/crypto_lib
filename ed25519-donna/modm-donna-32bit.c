@@ -32,7 +32,7 @@ lt_modm(bignum256modm_element_t a, bignum256modm_element_t b) {
 
 /* see HAC, Alg. 14.42 Step 4 */
 void reduce256_modm(bignum256modm r) {
-	bignum256modm t = {0};
+	bignum256modm t = {};
 	bignum256modm_element_t b = 0, pb = 0, mask = 0;
 
 	/* t = r - m */
@@ -66,7 +66,7 @@ void reduce256_modm(bignum256modm r) {
 	Instead of passing in x, pre-process in to q1 and r1 for efficiency
 */
 void barrett_reduce256_modm(bignum256modm r, const bignum256modm q1, const bignum256modm r1) {
-	bignum256modm q3 = {0}, r2 = {0};
+	bignum256modm q3 = {}, r2 = {};
 	uint64_t c = 0;
 	bignum256modm_element_t f = 0, b = 0, pb = 0;
 
@@ -191,7 +191,7 @@ void sub256_modm(bignum256modm r, const bignum256modm x, const bignum256modm y) 
 
 /* multiplication modulo m */
 void mul256_modm(bignum256modm r, const bignum256modm x, const bignum256modm y) {
-	bignum256modm r1 = {0}, q1 = {0};
+	bignum256modm r1 = {}, q1 = {};
 	uint64_t c = 0;
 	bignum256modm_element_t f = 0;
 
@@ -236,9 +236,9 @@ void mul256_modm(bignum256modm r, const bignum256modm x, const bignum256modm y) 
 }
 
 void expand256_modm(bignum256modm out, const unsigned char *in, size_t len) {
-	unsigned char work[64] = {0};
-	bignum256modm_element_t x[16] = {0};
-	bignum256modm q1 = {0};
+	unsigned char work[64] = {};
+	bignum256modm_element_t x[16] = {};
+	bignum256modm q1 = {};
 
 	memcpy(work, in, len);
 	x[0] = U8TO32_LE(work +  0);
@@ -288,7 +288,7 @@ void expand256_modm(bignum256modm out, const unsigned char *in, size_t len) {
 }
 
 void expand_raw256_modm(bignum256modm out, const unsigned char in[32]) {
-	bignum256modm_element_t x[8] = {0};
+	bignum256modm_element_t x[8] = {};
 
 	x[0] = U8TO32_LE(in +  0);
 	x[1] = U8TO32_LE(in +  4);
@@ -494,7 +494,7 @@ void copy256_modm(bignum256modm r, const bignum256modm x){
 
 int check256_modm(const bignum256modm x){
 	int ok = 1;
-	bignum256modm t={0}, z={0};
+	bignum256modm t={}, z={};
 
 	ok &= iszero256_modm(x) ^ 1;
 	barrett_reduce256_modm(t, z, x);
@@ -504,14 +504,14 @@ int check256_modm(const bignum256modm x){
 
 void mulsub256_modm(bignum256modm r, const bignum256modm a, const bignum256modm b, const bignum256modm c){
 	//(cc - aa * bb) % l
-	bignum256modm t={0};
+	bignum256modm t={};
 	mul256_modm(t, a, b);
 	sub256_modm(r, c, t);
 }
 
 void muladd256_modm(bignum256modm r, const bignum256modm a, const bignum256modm b, const bignum256modm c){
 	//(cc + aa * bb) % l
-	bignum256modm t={0};
+	bignum256modm t={};
 	mul256_modm(t, a, b);
 	add256_modm(r, c, t);
 }

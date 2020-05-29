@@ -167,7 +167,7 @@ static int convert_bits(uint8_t* out, size_t* outlen, int outbits,
 
 int cash_addr_encode(char* output, const char* hrp, const uint8_t* data,
                      size_t data_len) {
-  uint8_t base32[MAX_BASE32_SIZE] = {0};
+  uint8_t base32[MAX_BASE32_SIZE] = {};
   size_t base32len = 0;
   if (data_len < 2 || data_len > MAX_DATA_SIZE) return 0;
   convert_bits(base32, &base32len, 5, data, data_len, 8, 1);
@@ -176,8 +176,8 @@ int cash_addr_encode(char* output, const char* hrp, const uint8_t* data,
 
 int cash_addr_decode(uint8_t* witdata, size_t* witdata_len, const char* hrp,
                      const char* addr) {
-  uint8_t data[MAX_BASE32_SIZE] = {0};
-  char hrp_actual[MAX_HRP_SIZE + 1] = {0};
+  uint8_t data[MAX_BASE32_SIZE] = {};
+  char hrp_actual[MAX_HRP_SIZE + 1] = {};
   size_t data_len = 0;
   if (!cash_decode(hrp_actual, data, &data_len, addr)) return 0;
   if (data_len == 0 || data_len > MAX_BASE32_SIZE) return 0;

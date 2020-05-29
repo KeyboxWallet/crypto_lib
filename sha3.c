@@ -97,7 +97,7 @@ void sha3_512_Init(SHA3_CTX *ctx)
 static void keccak_theta(uint64_t *A)
 {
 	unsigned int x = 0;
-	uint64_t C[5] = {0}, D[5] = {0};
+	uint64_t C[5] = {}, D[5] = {};
 
 	for (x = 0; x < 5; x++) {
 		C[x] = A[x] ^ A[x + 5] ^ A[x + 10] ^ A[x + 15] ^ A[x + 20];
@@ -365,7 +365,7 @@ void keccak_Final(SHA3_CTX *ctx, unsigned char* result)
 
 void keccak_256(const unsigned char* data, size_t len, unsigned char* digest)
 {
-	SHA3_CTX ctx = {0};
+	SHA3_CTX ctx = {};
 	keccak_256_Init(&ctx);
 	keccak_Update(&ctx, data, len);
 	keccak_Final(&ctx, digest);
@@ -373,7 +373,7 @@ void keccak_256(const unsigned char* data, size_t len, unsigned char* digest)
 
 void keccak_512(const unsigned char* data, size_t len, unsigned char* digest)
 {
-	SHA3_CTX ctx = {0};
+	SHA3_CTX ctx = {};
 	keccak_512_Init(&ctx);
 	keccak_Update(&ctx, data, len);
 	keccak_Final(&ctx, digest);
@@ -382,7 +382,7 @@ void keccak_512(const unsigned char* data, size_t len, unsigned char* digest)
 
 void sha3_256(const unsigned char* data, size_t len, unsigned char* digest)
 {
-	SHA3_CTX ctx = {0};
+	SHA3_CTX ctx = {};
 	sha3_256_Init(&ctx);
 	sha3_Update(&ctx, data, len);
 	sha3_Final(&ctx, digest);
@@ -390,7 +390,7 @@ void sha3_256(const unsigned char* data, size_t len, unsigned char* digest)
 
 void sha3_512(const unsigned char* data, size_t len, unsigned char* digest)
 {
-	SHA3_CTX ctx = {0};
+	SHA3_CTX ctx = {};
 	sha3_512_Init(&ctx);
 	sha3_Update(&ctx, data, len);
 	sha3_Final(&ctx, digest);

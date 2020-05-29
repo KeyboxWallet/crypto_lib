@@ -30,7 +30,7 @@ static void update_k(HMAC_DRBG_CTX *ctx, uint8_t domain, const uint8_t *data1,
   // Computes K = HMAC(K, V || domain || data1 || data 2).
 
   // First hash operation of HMAC.
-  uint32_t h[SHA256_BLOCK_LENGTH / sizeof(uint32_t)] = {0};
+  uint32_t h[SHA256_BLOCK_LENGTH / sizeof(uint32_t)] = {};
   if (len1 + len2 == 0) {
     ctx->v[8] = 0x00800000;
     ctx->v[15] = (SHA256_BLOCK_LENGTH + SHA256_DIGEST_LENGTH + 1) * 8;
@@ -38,7 +38,7 @@ static void update_k(HMAC_DRBG_CTX *ctx, uint8_t domain, const uint8_t *data1,
     ctx->v[8] = 0x80000000;
     ctx->v[15] = (SHA256_BLOCK_LENGTH + SHA256_DIGEST_LENGTH) * 8;
   } else {
-    SHA256_CTX sha_ctx = {0};
+    SHA256_CTX sha_ctx = {};
     memcpy(sha_ctx.state, ctx->idig, SHA256_DIGEST_LENGTH);
     for (size_t i = 0; i < SHA256_DIGEST_LENGTH / sizeof(uint32_t); i++) {
 #if BYTE_ORDER == LITTLE_ENDIAN
@@ -86,7 +86,7 @@ static void update_v(HMAC_DRBG_CTX *ctx) {
 void hmac_drbg_init(HMAC_DRBG_CTX *ctx, const uint8_t *entropy,
                     size_t entropy_len, const uint8_t *nonce,
                     size_t nonce_len) {
-  uint32_t h[SHA256_BLOCK_LENGTH / sizeof(uint32_t)] = {0};
+  uint32_t h[SHA256_BLOCK_LENGTH / sizeof(uint32_t)] = {};
 
   // Precompute the inner digest and outer digest of K = 0x00 ... 0x00.
   memset(h, 0x36, sizeof(h));

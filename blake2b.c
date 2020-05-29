@@ -112,7 +112,7 @@ int blake2b_init_param( blake2b_state *S, const blake2b_param *P )
 /* Sequential blake2b initialization */
 int blake2b_Init( blake2b_state *S, size_t outlen )
 {
-  blake2b_param P[1] = {0};
+  blake2b_param P[1] = {};
 
   if ( ( !outlen ) || ( outlen > BLAKE2B_OUTBYTES ) ) return -1;
 
@@ -133,7 +133,7 @@ int blake2b_Init( blake2b_state *S, size_t outlen )
 
 int blake2b_InitPersonal( blake2b_state *S, size_t outlen, const void *personal, size_t personal_len)
 {
-  blake2b_param P[1] = {0};
+  blake2b_param P[1] = {};
 
   if ( ( !outlen ) || ( outlen > BLAKE2B_OUTBYTES ) ) return -1;
   if ( ( !personal ) || ( personal_len != BLAKE2B_PERSONALBYTES ) ) return -1;
@@ -155,7 +155,7 @@ int blake2b_InitPersonal( blake2b_state *S, size_t outlen, const void *personal,
 
 int blake2b_InitKey( blake2b_state *S, size_t outlen, const void *key, size_t keylen )
 {
-  blake2b_param P[1] = {0};
+  blake2b_param P[1] = {};
 
   if ( ( !outlen ) || ( outlen > BLAKE2B_OUTBYTES ) ) return -1;
 
@@ -177,7 +177,7 @@ int blake2b_InitKey( blake2b_state *S, size_t outlen, const void *key, size_t ke
   if( blake2b_init_param( S, P ) < 0 ) return -1;
 
   {
-    uint8_t block[BLAKE2B_BLOCKBYTES] = {0};
+    uint8_t block[BLAKE2B_BLOCKBYTES] = {};
     memzero( block, BLAKE2B_BLOCKBYTES );
     memcpy( block, key, keylen );
     blake2b_Update( S, block, BLAKE2B_BLOCKBYTES );
@@ -212,8 +212,8 @@ int blake2b_InitKey( blake2b_state *S, size_t outlen, const void *key, size_t ke
 
 static void blake2b_compress( blake2b_state *S, const uint8_t block[BLAKE2B_BLOCKBYTES] )
 {
-  uint64_t m[16] = {0};
-  uint64_t v[16] = {0};
+  uint64_t m[16] = {};
+  uint64_t v[16] = {};
   size_t i = 0;
 
   for( i = 0; i < 16; ++i ) {
@@ -283,7 +283,7 @@ int blake2b_Update( blake2b_state *S, const void *pin, size_t inlen )
 
 int blake2b_Final( blake2b_state *S, void *out, size_t outlen )
 {
-  uint8_t buffer[BLAKE2B_OUTBYTES] = {0};
+  uint8_t buffer[BLAKE2B_OUTBYTES] = {};
   size_t i = 0;
 
   if( out == NULL || outlen < S->outlen )

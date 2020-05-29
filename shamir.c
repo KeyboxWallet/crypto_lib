@@ -97,7 +97,7 @@ static void gf256_mul(uint32_t r[8], const uint32_t a[8], const uint32_t b[8]) {
    * However, some compilers seem to fail in optimizing these kinds of
    * loops. So we will just have to do this by hand.
    */
-  uint32_t a2[8] = {0};
+  uint32_t a2[8] = {};
   memcpy(a2, a, sizeof(uint32_t[8]));
 
   r[0] = a2[0] & b[0]; /* add (assignment, because r is 0) */
@@ -242,7 +242,7 @@ static void gf256_square(uint32_t r[8], const uint32_t x[8]) {
  * Invert `x` in GF(2^8) and write the result to `r`
  */
 static void gf256_inv(uint32_t r[8], uint32_t x[8]) {
-  uint32_t y[8] = {0}, z[8] = {0};
+  uint32_t y[8] = {}, z[8] = {};
 
   gf256_square(y, x);  // y = x^2
   gf256_square(y, y);  // y = x^4
@@ -265,15 +265,15 @@ bool shamir_interpolate(uint8_t *result, uint8_t result_index,
                         const uint8_t **share_values, uint8_t share_count,
                         size_t len) {
   size_t i = 0, j = 0;
-  uint32_t x[8] = {0};
+  uint32_t x[8] = {};
   uint32_t xs[share_count][8];
   memset(xs, 0, sizeof(xs));
   uint32_t ys[share_count][8];
   memset(ys, 0, sizeof(ys));
   uint32_t num[8] = {~0}; /* num is the numerator (=1) */
-  uint32_t denom[8] = {0};
-  uint32_t tmp[8] = {0};
-  uint32_t secret[8] = {0};
+  uint32_t denom[8] = {};
+  uint32_t tmp[8] = {};
+  uint32_t secret[8] = {};
   bool ret = true;
 
   if (len > SHAMIR_MAX_LEN) return false;

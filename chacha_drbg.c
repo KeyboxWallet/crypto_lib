@@ -25,7 +25,7 @@
 
 void chacha_drbg_init(CHACHA_DRBG_CTX *ctx,
                       const uint8_t entropy[CHACHA_DRBG_SEED_LENGTH]) {
-  uint8_t buffer[MAX(CHACHA_DRBG_KEY_LENGTH, CHACHA_DRBG_IV_LENGTH)] = {0};
+  uint8_t buffer[MAX(CHACHA_DRBG_KEY_LENGTH, CHACHA_DRBG_IV_LENGTH)] = {};
   ECRYPT_keysetup(&ctx->chacha_ctx, buffer, CHACHA_DRBG_KEY_LENGTH * 8,
                   CHACHA_DRBG_IV_LENGTH * 8);
   ECRYPT_ivsetup(&ctx->chacha_ctx, buffer);
@@ -35,7 +35,7 @@ void chacha_drbg_init(CHACHA_DRBG_CTX *ctx,
 
 static void chacha_drbg_update(CHACHA_DRBG_CTX *ctx,
                                const uint8_t data[CHACHA_DRBG_SEED_LENGTH]) {
-  uint8_t buffer[CHACHA_DRBG_SEED_LENGTH] = {0};
+  uint8_t buffer[CHACHA_DRBG_SEED_LENGTH] = {};
 
   if (data)
     ECRYPT_encrypt_bytes(&ctx->chacha_ctx, data, buffer,

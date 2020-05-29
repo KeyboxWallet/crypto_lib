@@ -128,7 +128,7 @@ bool b58tobin(void *bin, size_t *binszp, const char *b58) {
 
 int b58check(const void *bin, size_t binsz, HasherType hasher_type,
              const char *base58str) {
-  unsigned char buf[32] = {0};
+  unsigned char buf[32] = {};
   const uint8_t *binc = bin;
   unsigned i = 0;
   if (binsz < 4) return -4;
@@ -221,7 +221,7 @@ int base58_decode_check(const char *str, HasherType hasher_type, uint8_t *data,
 
 #if USE_GRAPHENE
 int b58gphcheck(const void *bin, size_t binsz, const char *base58str) {
-  unsigned char buf[32] = {0};
+  unsigned char buf[32] = {};
   const uint8_t *binc = bin;
   unsigned i = 0;
   if (binsz < 4) return -4;

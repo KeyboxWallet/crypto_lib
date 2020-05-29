@@ -9,8 +9,8 @@
  */
 
 void curve25519_scalarmult_donna(curve25519_key mypublic, const curve25519_key n, const curve25519_key basepoint) {
-	bignum25519 nqpqx = {1}, nqpqz = {0}, nqz = {1}, nqx = {0};
-	bignum25519 q = {0}, qx = {0}, qpqx = {0}, qqx = {0}, zzz = {0}, zmone = {0};
+	bignum25519 nqpqx = {1}, nqpqz = {}, nqz = {1}, nqx = {};
+	bignum25519 q = {}, qx = {}, qpqx = {}, qqx = {}, zzz = {}, zmone = {};
 	size_t bit = 0, lastbit = 0;
 	int32_t i = 0;
 

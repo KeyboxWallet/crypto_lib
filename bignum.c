@@ -459,7 +459,7 @@ void bn_multiply_reduce(bignum256 *x, uint32_t res[18],
 // result is partly reduced (0 <= x < 2 * prime)
 // This only works for primes between 2^256-2^224 and 2^256.
 void bn_multiply(const bignum256 *k, bignum256 *x, const bignum256 *prime) {
-  uint32_t res[18] = {0};
+  uint32_t res[18] = {};
   bn_multiply_long(k, x, res);
   bn_multiply_reduce(x, res, prime);
   memzero(res, sizeof(res));
