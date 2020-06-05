@@ -191,7 +191,10 @@ static void generate_k_random(bignum256 *k, const bignum256 *prime) {
     }
     k->val[8] = random32() & 0xFFFF;
     // check that k is in range and not zero.
-  } while (bn_is_zero(k) || !bn_is_less(k, prime));
+  } while (bn_is_zero(k) );
+  while ( !bn_is_less(k, prime)){
+      bn_rshift(k);
+  }
 }
 
 void curve_to_jacobian(const curve_point *p, jacobian_curve_point *jp,
