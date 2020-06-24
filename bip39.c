@@ -26,6 +26,7 @@
 
 #include "bip39.h"
 #include "bip39_english.h"
+#include "bip39_cn.h"
 #include "hmac.h"
 #include "memzero.h"
 #include "options.h"
@@ -45,6 +46,39 @@ static CONFIDENTIAL struct {
 } bip39_cache[BIP39_CACHE_SIZE];
 
 #endif
+
+static const char * const * wordlist = wordlist_en;
+
+int bip39_set_language(enum bip39_lang lang)
+{
+  int ret = 0;
+  switch( lang ){
+  case lang_en:
+    wordlist = wordlist_en;
+    ret = 1;
+    break;
+  case lang_zh_cn:
+    wordlist = wordlist_cn;
+    ret = 1;
+    break;
+  default:
+    break;
+  }
+  return ret;
+}
+
+enum bip39_lang bip39_get_language(void)
+{
+  if( wordlist == wordlist_en){
+    return lang_en;
+  }
+  else if( wordlist == wordlist_cn){
+    return lang_zh_cn;
+  }
+  // should never goes here.
+  return lang_en;
+}
+
 
 const char *mnemonic_generate(int strength) {
   if (strength % 32 || strength < 128 || strength > 256) {

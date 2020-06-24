@@ -21,7 +21,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-static const char* const wordlist[] = {
+static const char* const wordlist_en[] = {
     "abandon",  "ability",  "able",     "about",    "above",    "absent",
     "absorb",   "abstract", "absurd",   "abuse",    "access",   "accident",
     "account",  "accuse",   "achieve",  "acid",     "acoustic", "acquire",

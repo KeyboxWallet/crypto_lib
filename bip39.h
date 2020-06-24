@@ -30,6 +30,25 @@
 #define BIP39_WORDS 2048
 #define BIP39_PBKDF2_ROUNDS 2048
 
+enum bip39_lang  {
+    lang_en, // English
+    lang_jp, // Japan
+    lang_ko, // Korean
+    lang_es, // Spanish
+    lang_zh_cn, // Simplified Chinese
+    lang_zh_tw, // Traditional Chinese
+    lang_fr, // French
+    lang_it, // Italian
+    lang_cs, // Czech
+};
+
+// by default, use english, if not supported by impl, use last value,
+// return true for success.
+// warning !!!! these functions is not thread safe.
+int bip39_set_language(enum bip39_lang lang);
+
+enum bip39_lang bip39_get_language(void);
+
 const char *mnemonic_generate(int strength);  // strength in bits
 const char *mnemonic_from_data(const uint8_t *data, int len);
 void mnemonic_clear(void);

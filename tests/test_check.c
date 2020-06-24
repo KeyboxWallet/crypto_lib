@@ -5126,6 +5126,38 @@ START_TEST(test_mnemonic_find_word) {
 }
 END_TEST
 
+void mn_forth(int strength)
+{
+  const char * mnemonic = mnemonic_generate(strength);
+  ck_assert(mnemonic);
+  char * p = strdup(mnemonic);
+  uint8_t entropy[32+1] = {};
+  int bitlen = mnemonic_to_entropy(mnemonic, entropy);
+  int bytelen = (bitlen & 0x7) == 0 ? bitlen /8  : bitlen / 8 + 1;
+  mnemonic = mnemonic_from_data(entropy, bytelen - 1 ); //
+  ck_assert(mnemonic);
+  ck_assert_str_eq(p, mnemonic);
+  free(p);
+}
+
+
+START_TEST(test_mnemonic_entropy_backforth) {
+  int i;
+  for(i=0; i<4;i++){
+      mn_forth(128+32*i);
+  }
+  bip39_set_language(lang_zh_cn);
+  ck_assert_int_eq(bip39_get_language() , lang_zh_cn);
+  for(i=0; i<4;i++){
+      mn_forth(128+32*i);
+  }
+  bip39_set_language(lang_en);
+  ck_assert_int_eq(bip39_get_language() , lang_en);
+}
+END_TEST
+
+
+
 START_TEST(test_slip39_get_word) {
   static const struct {
     const int index;
@@ -8799,6 +8831,7 @@ Suite *test_suite(void) {
   tcase_add_test(tc, test_mnemonic_check);
   tcase_add_test(tc, test_mnemonic_to_entropy);
   tcase_add_test(tc, test_mnemonic_find_word);
+  tcase_add_test(tc, test_mnemonic_entropy_backforth);
   suite_add_tcase(s, tc);
 
   tc = tcase_create("slip39");
